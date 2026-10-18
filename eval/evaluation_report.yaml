@@ -1,0 +1,323 @@
+passed: 25
+results:
+- clean_sql: SELECT * FROM THREATDESK.PUBLIC.KEV ORDER BY DATE_ADDED DESC LIMIT 3
+  duration: 9.834971904754639
+  error: ''
+  id: q1
+  keywords_matched: true
+  passed: true
+  question: Show me the top 3 KEV vulnerabilities added most recently
+  rows: 3
+  sql: SELECT * FROM THREATDESK.PUBLIC.KEV ORDER BY DATE_ADDED DESC LIMIT 3;
+  tables_matched: true
+- clean_sql: SELECT k.CVE_ID, k.VENDOR_PROJECT, k.PRODUCT, k.VULNERABILITY_NAME, c.SEVERITY,
+    c.CVSS_SCORE, k.DATE_ADDED, k.KNOWN_RANSOMWARE_USE FROM THREATDESK.PUBLIC.KEV
+    AS k JOIN THREATDESK.PUBLIC.CVE AS c ON k.CVE_ID = c.CVE_ID WHERE (k.VENDOR_PROJECT
+    ILIKE '%Ivanti%' OR k.PRODUCT ILIKE '%Ivanti%') AND UPPER(c.SEVERITY) = 'CRITICAL'
+    ORDER BY k.DATE_ADDED DESC LIMIT 200
+  duration: 38.59513306617737
+  error: ''
+  id: q2
+  keywords_matched: true
+  passed: true
+  question: What are the critical vulnerabilities affecting Ivanti products in KEV?
+  rows: 0
+  sql: SELECT k.CVE_ID, k.VENDOR_PROJECT, k.PRODUCT, k.VULNERABILITY_NAME, c.SEVERITY,
+    c.CVSS_SCORE, k.DATE_ADDED, k.KNOWN_RANSOMWARE_USE FROM THREATDESK.PUBLIC.KEV
+    k JOIN THREATDESK.PUBLIC.CVE c ON k.CVE_ID = c.CVE_ID WHERE (k.VENDOR_PROJECT
+    ILIKE '%Ivanti%' OR k.PRODUCT ILIKE '%Ivanti%') AND UPPER(c.SEVERITY) = 'CRITICAL'
+    ORDER BY k.DATE_ADDED DESC LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT CVE.CVE_ID, CVE.SEVERITY, CVE.CVSS_SCORE, EPSS.EPSS_SCORE, CVE.DESCRIPTION
+    FROM THREATDESK.PUBLIC.CVE JOIN THREATDESK.PUBLIC.EPSS ON CVE.CVE_ID = EPSS.CVE_ID
+    WHERE EPSS.EPSS_SCORE > 0.95 ORDER BY EPSS.EPSS_SCORE DESC LIMIT 200
+  duration: 13.80952763557434
+  error: ''
+  id: q3
+  keywords_matched: true
+  passed: true
+  question: Show me vulnerabilities with EPSS score greater than 0.95
+  rows: 200
+  sql: SELECT CVE.CVE_ID, CVE.SEVERITY, CVE.CVSS_SCORE, EPSS.EPSS_SCORE, CVE.DESCRIPTION
+    FROM THREATDESK.PUBLIC.CVE JOIN THREATDESK.PUBLIC.EPSS ON CVE.CVE_ID = EPSS.CVE_ID
+    WHERE EPSS.EPSS_SCORE > 0.95 ORDER BY EPSS.EPSS_SCORE DESC LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT CVE_ID, VENDOR_PROJECT, PRODUCT, VULNERABILITY_NAME, SHORT_DESCRIPTION,
+    KNOWN_RANSOMWARE_USE FROM THREATDESK.PUBLIC.KEV WHERE KNOWN_RANSOMWARE_USE = 'Yes'
+    ORDER BY CVE_ID LIMIT 200
+  duration: 15.681122064590454
+  error: ''
+  id: q4
+  keywords_matched: true
+  passed: true
+  question: List KEV vulnerabilities with known ransomware campaign use
+  rows: 0
+  sql: SELECT CVE_ID, VENDOR_PROJECT, PRODUCT, VULNERABILITY_NAME, SHORT_DESCRIPTION,
+    KNOWN_RANSOMWARE_USE FROM THREATDESK.PUBLIC.KEV WHERE KNOWN_RANSOMWARE_USE = 'Yes'
+    ORDER BY CVE_ID LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT CVE_ID, CVSS_SCORE, SEVERITY, DESCRIPTION FROM THREATDESK.PUBLIC.CVE
+    WHERE CVSS_SCORE > 9.0 ORDER BY CVSS_SCORE DESC LIMIT 200
+  duration: 10.253106355667114
+  error: ''
+  id: q5
+  keywords_matched: true
+  passed: true
+  question: What vulnerabilities have a CVSS score greater than 9.0?
+  rows: 0
+  sql: SELECT CVE_ID, CVSS_SCORE, SEVERITY, DESCRIPTION FROM THREATDESK.PUBLIC.CVE
+    WHERE CVSS_SCORE > 9.0 ORDER BY CVSS_SCORE DESC LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT * FROM THREATDESK.PUBLIC.KEV WHERE VENDOR_PROJECT ILIKE '%Microsoft%'
+    OR PRODUCT ILIKE '%Microsoft%' LIMIT 200
+  duration: 10.287962913513184
+  error: ''
+  id: q6
+  keywords_matched: true
+  passed: true
+  question: Show me KEV vulnerabilities associated with Microsoft products
+  rows: 200
+  sql: SELECT * FROM THREATDESK.PUBLIC.KEV WHERE VENDOR_PROJECT ILIKE '%Microsoft%'
+    OR PRODUCT ILIKE '%Microsoft%' LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT k.CVE_ID, e.EPSS_SCORE FROM THREATDESK.PUBLIC.KEV AS k JOIN THREATDESK.PUBLIC.EPSS
+    AS e ON k.CVE_ID = e.CVE_ID WHERE e.EPSS_SCORE > 0.9 LIMIT 200
+  duration: 68.48539924621582
+  error: ''
+  id: q7
+  keywords_matched: true
+  passed: true
+  question: Find CVEs that are present in both KEV and have EPSS score above 0.9
+  rows: 200
+  sql: 'SELECT k.CVE_ID, e.EPSS_SCORE
+
+    FROM THREATDESK.PUBLIC.KEV k
+
+    JOIN THREATDESK.PUBLIC.EPSS e ON k.CVE_ID = e.CVE_ID
+
+    WHERE e.EPSS_SCORE > 0.9
+
+    LIMIT 200;'
+  tables_matched: true
+- clean_sql: SELECT AVG(CVSS_SCORE) AS AVERAGE_CVSS_SCORE FROM THREATDESK.PUBLIC.CVE
+    LIMIT 200
+  duration: 11.84916877746582
+  error: ''
+  id: q8
+  keywords_matched: true
+  passed: true
+  question: What is the average CVSS score of vulnerabilities in the CVE table?
+  rows: 1
+  sql: SELECT AVG(CVSS_SCORE) AS AVERAGE_CVSS_SCORE FROM THREATDESK.PUBLIC.CVE LIMIT
+    200;
+  tables_matched: true
+- clean_sql: SELECT CVE_ID, PERCENTILE FROM THREATDESK.PUBLIC.EPSS ORDER BY PERCENTILE
+    DESC LIMIT 5
+  duration: 9.969643354415894
+  error: ''
+  id: q9
+  keywords_matched: true
+  passed: true
+  question: Show me the top 5 vulnerabilities with the highest EPSS percentile
+  rows: 5
+  sql: SELECT CVE_ID, PERCENTILE FROM THREATDESK.PUBLIC.EPSS ORDER BY PERCENTILE DESC
+    LIMIT 5;
+  tables_matched: true
+- clean_sql: SELECT * FROM THREATDESK.PUBLIC.KEV WHERE YEAR(DATE_ADDED) = 2026 LIMIT
+    200
+  duration: 13.233360767364502
+  error: ''
+  id: q10
+  keywords_matched: true
+  passed: true
+  question: List vulnerabilities added to KEV in 2026
+  rows: 200
+  sql: SELECT * FROM THREATDESK.PUBLIC.KEV WHERE YEAR(DATE_ADDED) = 2026 LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT CVE_ID, VENDOR_PROJECT, PRODUCT, VULNERABILITY_NAME, REQUIRED_ACTION,
+    DUE_DATE, KNOWN_RANSOMWARE_USE FROM THREATDESK.PUBLIC.KEV WHERE NOT REQUIRED_ACTION
+    IS NULL ORDER BY DUE_DATE ASC LIMIT 200
+  duration: 112.09788393974304
+  error: ''
+  id: q11
+  keywords_matched: true
+  passed: true
+  question: Show me vulnerabilities requiring immediate remediation action in KEV
+  rows: 200
+  sql: SELECT CVE_ID, VENDOR_PROJECT, PRODUCT, VULNERABILITY_NAME, REQUIRED_ACTION,
+    DUE_DATE, KNOWN_RANSOMWARE_USE FROM THREATDESK.PUBLIC.KEV WHERE REQUIRED_ACTION
+    IS NOT NULL ORDER BY DUE_DATE ASC NULLS LAST LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT DUE_DATE, VENDOR_PROJECT, PRODUCT, VULNERABILITY_NAME FROM THREATDESK.PUBLIC.KEV
+    WHERE VENDOR_PROJECT ILIKE '%Ivanti%' OR PRODUCT ILIKE '%Ivanti%' ORDER BY DUE_DATE
+    ASC LIMIT 200
+  duration: 12.698391199111938
+  error: ''
+  id: q12
+  keywords_matched: true
+  passed: true
+  question: What are the remediation due dates for Ivanti vulnerabilities in KEV?
+  rows: 36
+  sql: SELECT DUE_DATE, VENDOR_PROJECT, PRODUCT, VULNERABILITY_NAME FROM THREATDESK.PUBLIC.KEV
+    WHERE VENDOR_PROJECT ILIKE '%Ivanti%' OR PRODUCT ILIKE '%Ivanti%' ORDER BY DUE_DATE
+    ASC LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT VENDOR_PROJECT, COUNT(*) AS VULNERABILITY_COUNT FROM THREATDESK.PUBLIC.KEV
+    GROUP BY VENDOR_PROJECT ORDER BY VULNERABILITY_COUNT DESC LIMIT 200
+  duration: 10.239463806152344
+  error: ''
+  id: q13
+  keywords_matched: true
+  passed: true
+  question: Count how many KEV vulnerabilities exist per vendor or project
+  rows: 200
+  sql: SELECT VENDOR_PROJECT, COUNT(*) AS VULNERABILITY_COUNT FROM THREATDESK.PUBLIC.KEV
+    GROUP BY VENDOR_PROJECT ORDER BY VULNERABILITY_COUNT DESC LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT * FROM THREATDESK.PUBLIC.KEV WHERE VENDOR_PROJECT ILIKE '%Apache
+    Log4j%' OR PRODUCT ILIKE '%Apache Log4j%' OR VULNERABILITY_NAME ILIKE '%Apache
+    Log4j%' OR SHORT_DESCRIPTION ILIKE '%Apache Log4j%' LIMIT 200
+  duration: 11.97529411315918
+  error: ''
+  id: q14
+  keywords_matched: true
+  passed: true
+  question: Show me KEV vulnerabilities related to Apache Log4j
+  rows: 2
+  sql: SELECT * FROM THREATDESK.PUBLIC.KEV WHERE VENDOR_PROJECT ILIKE '%Apache Log4j%'
+    OR PRODUCT ILIKE '%Apache Log4j%' OR VULNERABILITY_NAME ILIKE '%Apache Log4j%'
+    OR SHORT_DESCRIPTION ILIKE '%Apache Log4j%' LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT CVE_ID, CVSS_SCORE, SEVERITY, DESCRIPTION FROM THREATDESK.PUBLIC.CVE
+    WHERE CVSS_SCORE = 10.0 LIMIT 200
+  duration: 56.260892152786255
+  error: ''
+  id: q15
+  keywords_matched: true
+  passed: true
+  question: List vulnerabilities with CVSS score 10.0
+  rows: 0
+  sql: SELECT CVE_ID, CVSS_SCORE, SEVERITY, DESCRIPTION FROM THREATDESK.PUBLIC.CVE
+    WHERE CVSS_SCORE = 10.0 LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT EPSS_SCORE, PERCENTILE, SCORE_DATE FROM THREATDESK.PUBLIC.EPSS
+    WHERE CVE_ID = 'CVE-2021-44228' LIMIT 200
+  duration: 9.77129864692688
+  error: ''
+  id: q16
+  keywords_matched: true
+  passed: true
+  question: Show me EPSS scores for CVE-2021-44228
+  rows: 1
+  sql: SELECT EPSS_SCORE, PERCENTILE, SCORE_DATE FROM THREATDESK.PUBLIC.EPSS WHERE
+    CVE_ID = 'CVE-2021-44228' LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT * FROM THREATDESK.PUBLIC.KEV WHERE NOTES ILIKE '%security advisory%'
+    LIMIT 200
+  duration: 10.535881757736206
+  error: ''
+  id: q17
+  keywords_matched: true
+  passed: true
+  question: What KEV entries have notes referencing security advisories?
+  rows: 0
+  sql: SELECT * FROM THREATDESK.PUBLIC.KEV WHERE NOTES ILIKE '%security advisory%'
+    LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT CVE.CVE_ID, CVE.SEVERITY, CVE.CVSS_SCORE, EPSS.EPSS_SCORE, CVE.DESCRIPTION
+    FROM THREATDESK.PUBLIC.CVE JOIN THREATDESK.PUBLIC.EPSS ON CVE.CVE_ID = EPSS.CVE_ID
+    WHERE EPSS.EPSS_SCORE > 0.8 AND CVE.SEVERITY = 'CRITICAL' ORDER BY EPSS.EPSS_SCORE
+    DESC LIMIT 200
+  duration: 15.650776624679565
+  error: ''
+  id: q18
+  keywords_matched: true
+  passed: true
+  question: Find vulnerabilities where EPSS score is greater than 0.8 and CVE severity
+    is CRITICAL
+  rows: 0
+  sql: SELECT CVE.CVE_ID, CVE.SEVERITY, CVE.CVSS_SCORE, EPSS.EPSS_SCORE, CVE.DESCRIPTION
+    FROM THREATDESK.PUBLIC.CVE JOIN THREATDESK.PUBLIC.EPSS ON CVE.CVE_ID = EPSS.CVE_ID
+    WHERE EPSS.EPSS_SCORE > 0.8 AND CVE.SEVERITY = 'CRITICAL' ORDER BY EPSS.EPSS_SCORE
+    DESC LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT * FROM THREATDESK.PUBLIC.KEV ORDER BY DATE_ADDED ASC LIMIT 10
+  duration: 11.130540132522583
+  error: ''
+  id: q19
+  keywords_matched: true
+  passed: true
+  question: Show the top 10 oldest KEV vulnerabilities by date added
+  rows: 10
+  sql: SELECT * FROM THREATDESK.PUBLIC.KEV ORDER BY DATE_ADDED ASC LIMIT 10;
+  tables_matched: true
+- clean_sql: SELECT DISTINCT PRODUCT FROM THREATDESK.PUBLIC.KEV LIMIT 200
+  duration: 10.520843505859375
+  error: ''
+  id: q20
+  keywords_matched: true
+  passed: true
+  question: List all products affected by vulnerabilities in KEV
+  rows: 200
+  sql: SELECT DISTINCT PRODUCT FROM THREATDESK.PUBLIC.KEV LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT CVE_ID, EPSS_SCORE FROM THREATDESK.PUBLIC.EPSS WHERE EPSS_SCORE
+    BETWEEN 0.5 AND 0.8 ORDER BY EPSS_SCORE DESC LIMIT 200
+  duration: 13.957105159759521
+  error: ''
+  id: q21
+  keywords_matched: true
+  passed: true
+  question: Show me vulnerabilities with EPSS score between 0.5 and 0.8
+  rows: 200
+  sql: SELECT CVE_ID, EPSS_SCORE FROM THREATDESK.PUBLIC.EPSS WHERE EPSS_SCORE BETWEEN
+    0.5 AND 0.8 ORDER BY EPSS_SCORE DESC LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT COUNT(*) FROM THREATDESK.PUBLIC.KEV LIMIT 200
+  duration: 10.783484935760498
+  error: ''
+  id: q22
+  keywords_matched: true
+  passed: true
+  question: Count total number of records in the KEV table
+  rows: 1
+  sql: SELECT COUNT(*) FROM THREATDESK.PUBLIC.KEV
+  tables_matched: true
+- clean_sql: SELECT * FROM THREATDESK.PUBLIC.KEV WHERE KNOWN_RANSOMWARE_USE = 'Yes'
+    LIMIT 200
+  duration: 11.765703201293945
+  error: ''
+  id: q23
+  keywords_matched: true
+  passed: true
+  question: Find vulnerabilities in KEV where known ransomware use is Yes
+  rows: 0
+  sql: SELECT * FROM THREATDESK.PUBLIC.KEV WHERE KNOWN_RANSOMWARE_USE = 'Yes' LIMIT
+    200;
+  tables_matched: true
+- clean_sql: SELECT CVE_ID, DESCRIPTION FROM THREATDESK.PUBLIC.CVE WHERE DESCRIPTION
+    ILIKE '%remote code execution%' LIMIT 200
+  duration: 15.601085186004639
+  error: ''
+  id: q24
+  keywords_matched: true
+  passed: true
+  question: Show me CVE descriptions containing remote code execution
+  rows: 200
+  sql: SELECT CVE_ID, DESCRIPTION FROM THREATDESK.PUBLIC.CVE WHERE DESCRIPTION ILIKE
+    '%remote code execution%' LIMIT 200;
+  tables_matched: true
+- clean_sql: SELECT VENDOR_PROJECT, COUNT(*) AS entry_count FROM THREATDESK.PUBLIC.KEV
+    GROUP BY VENDOR_PROJECT ORDER BY entry_count DESC LIMIT 5
+  duration: 34.71876835823059
+  error: ''
+  id: q25
+  keywords_matched: true
+  passed: true
+  question: List the top 5 vendors with the most KEV entries
+  rows: 5
+  sql: SELECT VENDOR_PROJECT, COUNT(*) AS entry_count FROM THREATDESK.PUBLIC.KEV GROUP
+    BY VENDOR_PROJECT ORDER BY entry_count DESC LIMIT 5
+  tables_matched: true
+success_rate: 100.0
+total: 25

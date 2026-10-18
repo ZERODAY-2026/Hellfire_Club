@@ -1,0 +1,120 @@
+database: SNOWFLAKE_SAMPLE_DATA
+schema: TPCH_SF1
+domain_name: "TPC-H E-Commerce & Supply Chain"
+domain_persona: "Enterprise Supply Chain and Sales Analyst"
+allowed_tables:
+  - ORDERS
+  - CUSTOMER
+  - LINEITEM
+
+tables:
+  ORDERS:
+    description: Customer orders table containing order status, total price, order date, and priority.
+    columns:
+      ORDERKEY:
+        type: NUMBER
+        description: Unique order identifier
+      CUSTKEY:
+        type: NUMBER
+        description: Customer identifier (foreign key to CUSTOMER)
+      ORDERSTATUS:
+        type: VARCHAR
+        description: Status of order (O, F, P)
+      TOTALPRICE:
+        type: FLOAT
+        description: Total price of the order
+      ORDERDATE:
+        type: DATE
+        description: Date the order was placed
+      ORDERPRIORITY:
+        type: VARCHAR
+        description: Priority rating of the order (e.g. 1-URGENT)
+      CLERK:
+        type: VARCHAR
+        description: Clerk identifier
+      SHIPPRIORITY:
+        type: NUMBER
+        description: Shipping priority
+      COMMENT:
+        type: TEXT
+        description: Order comments
+
+  CUSTOMER:
+    description: Customer master table containing customer names, addresses, phone numbers, and account balance.
+    columns:
+      CUSTKEY:
+        type: NUMBER
+        description: Unique customer identifier
+      NAME:
+        type: VARCHAR
+        description: Customer name
+      ADDRESS:
+        type: VARCHAR
+        description: Customer address
+      NATIONKEY:
+        type: NUMBER
+        description: Foreign key to nation
+      PHONE:
+        type: VARCHAR
+        description: Customer phone number
+      ACCTBAL:
+        type: FLOAT
+        description: Account balance
+      MKTSEGMENT:
+        type: VARCHAR
+        description: Market segment (e.g. AUTOMOBILE, BUILDING)
+      COMMENT:
+        type: TEXT
+        description: Customer comments
+
+  LINEITEM:
+    description: Detailed line items for each order, containing quantity, extended price, discount, tax, and ship dates.
+    columns:
+      ORDERKEY:
+        type: NUMBER
+        description: Order key (foreign key to ORDERS)
+      PARTKEY:
+        type: NUMBER
+        description: Part key
+      SUPPKEY:
+        type: NUMBER
+        description: Supplier key
+      LINENUMBER:
+        type: NUMBER
+        description: Line number within order
+      QUANTITY:
+        type: FLOAT
+        description: Quantity ordered
+      EXTENDEDPRICE:
+        type: FLOAT
+        description: Extended price
+      DISCOUNT:
+        type: FLOAT
+        description: Discount applied
+      TAX:
+        type: FLOAT
+        description: Tax applied
+      RETURNFLAG:
+        type: VARCHAR
+        description: Return status flag
+      LINESTATUS:
+        type: VARCHAR
+        description: Line status flag
+      SHIPDATE:
+        type: DATE
+        description: Shipping date
+      COMMITDATE:
+        type: DATE
+        description: Commit date
+      RECEIPTDATE:
+        type: DATE
+        description: Receipt date
+      SHIPINSTRUCT:
+        type: VARCHAR
+        description: Shipping instructions
+      SHIPMODE:
+        type: VARCHAR
+        description: Shipping mode
+      COMMENT:
+        type: TEXT
+        description: Line item comments

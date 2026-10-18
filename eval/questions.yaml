@@ -1,0 +1,128 @@
+# ThreatDesk Evaluation Question Set (25 Questions)
+# Covers CISA KEV, EPSS, CVE catalogs, joins, aggregations, filtering, and temporal queries.
+
+questions:
+  - id: q1
+    question: "Show me the top 3 KEV vulnerabilities added most recently"
+    expected_tables: ["KEV"]
+    expected_keywords: ["ORDER BY DATE_ADDED DESC", "LIMIT 3"]
+
+  - id: q2
+    question: "What are the critical vulnerabilities affecting Ivanti products in KEV?"
+    expected_tables: ["KEV"]
+    expected_keywords: ["Ivanti", "CRITICAL"]
+
+  - id: q3
+    question: "Show me vulnerabilities with EPSS score greater than 0.95"
+    expected_tables: ["EPSS"]
+    expected_keywords: ["EPSS_SCORE > 0.95"]
+
+  - id: q4
+    question: "List KEV vulnerabilities with known ransomware campaign use"
+    expected_tables: ["KEV"]
+    expected_keywords: ["KNOWN_RANSOMWARE_USE"]
+
+  - id: q5
+    question: "What vulnerabilities have a CVSS score greater than 9.0?"
+    expected_tables: ["CVE"]
+    expected_keywords: ["CVSS_SCORE > 9.0"]
+
+  - id: q6
+    question: "Show me KEV vulnerabilities associated with Microsoft products"
+    expected_tables: ["KEV"]
+    expected_keywords: ["Microsoft"]
+
+  - id: q7
+    question: "Find CVEs that are present in both KEV and have EPSS score above 0.9"
+    expected_tables: ["KEV", "EPSS"]
+    expected_keywords: ["JOIN", "EPSS_SCORE"]
+
+  - id: q8
+    question: "What is the average CVSS score of vulnerabilities in the CVE table?"
+    expected_tables: ["CVE"]
+    expected_keywords: ["AVG(CVSS_SCORE)"]
+
+  - id: q9
+    question: "Show me the top 5 vulnerabilities with the highest EPSS percentile"
+    expected_tables: ["EPSS"]
+    expected_keywords: ["PERCENTILE", "ORDER BY", "LIMIT 5"]
+
+  - id: q10
+    question: "List vulnerabilities added to KEV in 2026"
+    expected_tables: ["KEV"]
+    expected_keywords: ["DATE_ADDED"]
+
+  - id: q11
+    question: "Show me vulnerabilities requiring immediate remediation action in KEV"
+    expected_tables: ["KEV"]
+    expected_keywords: ["REQUIRED_ACTION"]
+
+  - id: q12
+    question: "What are the remediation due dates for Ivanti vulnerabilities in KEV?"
+    expected_tables: ["KEV"]
+    expected_keywords: ["DUE_DATE", "Ivanti"]
+
+  - id: q13
+    question: "Count how many KEV vulnerabilities exist per vendor or project"
+    expected_tables: ["KEV"]
+    expected_keywords: ["GROUP BY VENDOR_PROJECT", "COUNT"]
+
+  - id: q14
+    question: "Show me KEV vulnerabilities related to Apache Log4j"
+    expected_tables: ["KEV"]
+    expected_keywords: ["Log4j"]
+
+  - id: q15
+    question: "List vulnerabilities with CVSS score 10.0"
+    expected_tables: ["CVE"]
+    expected_keywords: ["CVSS_SCORE = 10.0"]
+
+  - id: q16
+    question: "Show me EPSS scores for CVE-2021-44228"
+    expected_tables: ["EPSS"]
+    expected_keywords: ["CVE-2021-44228"]
+
+  - id: q17
+    question: "What KEV entries have notes referencing security advisories?"
+    expected_tables: ["KEV"]
+    expected_keywords: ["NOTES"]
+
+  - id: q18
+    question: "Find vulnerabilities where EPSS score is greater than 0.8 and CVE severity is CRITICAL"
+    expected_tables: ["EPSS", "CVE"]
+    expected_keywords: ["JOIN", "EPSS_SCORE", "CRITICAL"]
+
+  - id: q19
+    question: "Show the top 10 oldest KEV vulnerabilities by date added"
+    expected_tables: ["KEV"]
+    expected_keywords: ["ORDER BY DATE_ADDED ASC", "LIMIT 10"]
+
+  - id: q20
+    question: "List all products affected by vulnerabilities in KEV"
+    expected_tables: ["KEV"]
+    expected_keywords: ["PRODUCT"]
+
+  - id: q21
+    question: "Show me vulnerabilities with EPSS score between 0.5 and 0.8"
+    expected_tables: ["EPSS"]
+    expected_keywords: ["BETWEEN 0.5 AND 0.8"]
+
+  - id: q22
+    question: "Count total number of records in the KEV table"
+    expected_tables: ["KEV"]
+    expected_keywords: ["COUNT(*)"]
+
+  - id: q23
+    question: "Find vulnerabilities in KEV where known ransomware use is Yes"
+    expected_tables: ["KEV"]
+    expected_keywords: ["KNOWN_RANSOMWARE_USE"]
+
+  - id: q24
+    question: "Show me CVE descriptions containing remote code execution"
+    expected_tables: ["CVE"]
+    expected_keywords: ["DESCRIPTION"]
+
+  - id: q25
+    question: "List the top 5 vendors with the most KEV entries"
+    expected_tables: ["KEV"]
+    expected_keywords: ["GROUP BY VENDOR_PROJECT", "ORDER BY", "LIMIT 5"]

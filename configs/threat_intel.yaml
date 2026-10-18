@@ -1,0 +1,76 @@
+database: THREAT_DB
+schema: THREAT_SCHEMA
+allowed_tables:
+  - CVE
+  - KEV
+  - EPSS
+
+tables:
+  CVE:
+    description: Core vulnerability catalog table linking CVE identifiers with published dates, severity, CVSS scores, and descriptions.
+    columns:
+      CVE_ID:
+        type: VARCHAR
+        description: Standard CVE identifier (e.g. CVE-2021-44228)
+      PUBLISHED_DATE:
+        type: DATE
+        description: Date CVE was published
+      CVSS_SCORE:
+        type: FLOAT
+        description: CVSS base score (0.0 to 10.0)
+      SEVERITY:
+        type: VARCHAR
+        description: Severity rating (LOW, MEDIUM, HIGH, CRITICAL)
+      DESCRIPTION:
+        type: TEXT
+        description: Vulnerability description
+
+  KEV:
+    description: CISA Known Exploited Vulnerabilities catalog.
+    columns:
+      CVE_ID:
+        type: VARCHAR
+        description: Standard CVE identifier
+      VENDOR_PROJECT:
+        type: VARCHAR
+        description: Affected vendor or project
+      PRODUCT:
+        type: VARCHAR
+        description: Affected product name
+      VULNERABILITY_NAME:
+        type: VARCHAR
+        description: Descriptive vulnerability name
+      DATE_ADDED:
+        type: DATE
+        description: Date added to CISA KEV catalog
+      SHORT_DESCRIPTION:
+        type: TEXT
+        description: Summary of vulnerability
+      REQUIRED_ACTION:
+        type: TEXT
+        description: Remediation action required
+      DUE_DATE:
+        type: DATE
+        description: Remediation deadline
+      KNOWN_RANSOMWARE_USE:
+        type: VARCHAR
+        description: Known ransomware campaign use status
+      NOTES:
+        type: TEXT
+        description: References and URLs
+
+  EPSS:
+    description: Exploit Prediction Scoring System scores maintained by FIRST and Cyentia Institute.
+    columns:
+      CVE_ID:
+        type: VARCHAR
+        description: Standard CVE identifier
+      EPSS_SCORE:
+        type: FLOAT
+        description: Probability score (0.0 to 1.0)
+      PERCENTILE:
+        type: FLOAT
+        description: Relative ranking percentile (0.0 to 1.0)
+      SCORE_DATE:
+        type: DATE
+        description: Date of EPSS score calculation
