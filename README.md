@@ -13,7 +13,7 @@ Built for the **ZeroDay OSS Hacktoberfest 2026, PS1: DataMind** track.
 
 \---
 
-## Table of contents
+## Table of contents :-
 
 1. [Why ThreatDesk](#why-threatdesk)
 2. [Features](#features)
